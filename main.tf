@@ -15,7 +15,7 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  cluster_name = "education-eks-${random_string.suffix.result}"
+  cluster_name = "prasad-eks-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
@@ -55,7 +55,7 @@ module "eks" {
   version = "19.15.3"
 
   cluster_name    = local.cluster_name
-  cluster_version = "1.27"
+  cluster_version = "1.24"
 
   vpc_id                         = module.vpc.vpc_id
   subnet_ids                     = module.vpc.private_subnets
@@ -68,7 +68,7 @@ module "eks" {
 
   eks_managed_node_groups = {
     one = {
-      name = "node-group-1"
+      name = "frontend"
 
       instance_types = ["t3.small"]
 
@@ -78,7 +78,16 @@ module "eks" {
     }
 
     two = {
-      name = "node-group-2"
+      name = "backend"
+
+      instance_types = ["t3.small"]
+
+      min_size     = 1
+      max_size     = 2
+      desired_size = 1
+    }
+     three = {
+      name = "database"
 
       instance_types = ["t3.small"]
 
