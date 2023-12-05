@@ -1,12 +1,12 @@
 pipeline {
     agent any
 
-    stages {
+   /* stages {
         stage('github') {
             steps {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/chanduooo/devops-eks.git']])
             }
-        }
+        }*/
          stage('init') {
             steps {
                 sh 'terraform init'
@@ -27,10 +27,6 @@ pipeline {
                 sh 'terraform apply --auto-approve'
         }
      }
-         stage('destoy') {
-            steps {
-                sh 'terraform destroy --auto-approve'
-        }
-  }
+         
 }
 }
