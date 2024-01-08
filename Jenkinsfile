@@ -1,8 +1,8 @@
 pipeline {
     agent any
 
-   /*stages {
-         stage('init') {
+   stages {
+         /*stage('init') {
             steps {
                 sh 'terraform init'
             }
@@ -28,4 +28,4 @@ pipeline {
         }
       }
 }
-
+}
