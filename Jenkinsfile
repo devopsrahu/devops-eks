@@ -9,6 +9,7 @@ pipeline {
                 sh 'echo $AWS_SECRET_ACCESS_KEY'
             }
         }
+    }
          stage('init') {
             steps {
                 sh 'terraform init'
@@ -34,5 +35,6 @@ pipeline {
                 sh 'terraform destroy --auto-approve'
         }
       }
+
 }
 }
