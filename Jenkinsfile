@@ -4,12 +4,16 @@ pipeline {
    stages {
           stage('aws cred') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'aws-cred', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                sh 'echo $AWS_ACCESS_KEY_ID'
-                sh 'echo $AWS_SECRET_ACCESS_KEY'
+               withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: "aws-cred",
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                    sh 'aws ec2 describe-instance'
+                }
             }
         }
-    }
+    
          stage('init') {
             steps {
                 sh 'terraform init'
